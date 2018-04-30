@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import sys
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
-sys.path.insert(0,os.path.join(BASE_DIR,'extra_apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -27,6 +28,10 @@ SECRET_KEY = '3==+9g+n^_fc7w*_(*b6b$c$ag_69lvv23r!7!p!mos(t6q7eb'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 # Application definition
 
@@ -42,7 +47,7 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'crispy_forms',
-    'xadmin'
+    'xadmin',
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -131,3 +136,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
