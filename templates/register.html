@@ -24,7 +24,8 @@
                 <span class="word2">Password</span>
                 <input type="password" name="password_l" id="password_l" placeholder="Type your password"/>
             </div>
-            <div class="error btns login-form-tips" id="jsLoginTips"></div>
+            <div class="error btns login-form-tips" id="jsLoginTips">{% for key, error in register_form.errors.items %}
+                            {{ error }}{% endfor %}{{ message }}</div>
             <div class="btns">
                 <span><input type="checkbox" id="jsAutoLogin" />&nbsp;Login auto</span>
                 <span class="forget btn fr">Forgot password</span>
@@ -55,8 +56,8 @@
             <p>I had sent<span class="green" id="jsEmailToActive">12@13.com</span> an email，<br/>Please check your mailbox</p>
             <p class="a"><a class="btn" id="jsGoToEmail" target="_blank" href="http://mail.qq.com">Go to mailbox</a></p>
             <p class="zy_success upmove"></p>
-            <p style="display: none;" class="sendE2">没收到，您可以查看您的垃圾邮件和被过滤邮件，也可以再次发送验证邮件（<span class="c5c">60s</span>）</p>
-            <p class="sendE">没收到，您可以查看您的垃圾邮件和被过滤邮件，<br/>也可以<span class="c5c green" id="jsSenEmailAgin" style="cursor: pointer;">再次发送验证邮件</span></p>
+            <p style="display: none;" class="sendE2">Not received? Check spam（<span class="c5c">60s</span>）</p>
+            <p class="sendE">Still not?<br/>You can also<span class="c5c green" id="jsSenEmailAgin" style="cursor: pointer;">Send again</span></p>
         </div>
     </div>
 </div>
@@ -144,7 +145,7 @@
                             <label>Code</label>
                             {{ register_form.captcha }}
                         </div>
-                        <div class="error btns" id="jsEmailTips">{% for error in register_form.errors.items %}{{ error }}{% endfor %}</div>
+                        <div class="error btns" id="jsEmailTips">{% for error in register_form.errors.items %}{{ error }}{% endfor %}{{ message }}</div>
                         <div class="auto-box marb8">
                         </div>
                         <input class="btn btn-green" id="jsEmailRegBtn" type="submit" value="Register and login" />

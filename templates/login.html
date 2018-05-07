@@ -84,7 +84,7 @@
                             {{ error }}{% endfor %}{{ message }}</div>
                     <div class="auto-box marb38">
 
-                        <a class="fr" href="/forgetpwd/">Forgot password？</a>
+                        <a class="fr" href="{% url 'forget_pwd' %}">Forgot password？</a>
                     </div>
                     <input class="btn btn-green" id="jsLoginBtn" type="submit" value="Login > "/>
                     {% csrf_token %}

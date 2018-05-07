@@ -130,8 +130,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-# USE_TZ = False
+# USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -141,9 +141,16 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-EMAIL_HOST = "smtp.XXX.com"
-EMAIL_PORT = 25
-EMAIL_HOST_USER = "XXXX@XXX.com"
-EMAIL_HOST_PASSWORD = "XXXX"
-EMAIL_USE_TLS = False
-EMAIL_FROM = "XXXX@XXX.com"
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 25
+# EMAIL_HOST_USER = "xxxxx@gmail.com"
+# EMAIL_HOST_PASSWORD = "Xxxxxx"
+# EMAIL_USE_TLS = False
+# EMAIL_FROM = "xxxxxx@gmail.com"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'XXXXX@gmail.com'
+EMAIL_HOST_PASSWORD = 'XXXXXX'
+# EMAIL_USE_TLS = False
