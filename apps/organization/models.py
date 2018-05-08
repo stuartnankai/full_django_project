@@ -14,6 +14,9 @@ class CityDict(models.Model):
         verbose_name = "city"
         verbose_name_plural = verbose_name
 
+    def __unicode__(self):
+        return self.name
+
 
 class CourseOrg(models.Model):
     name = models.CharField(max_length=50, verbose_name="orgname")
@@ -24,14 +27,19 @@ class CourseOrg(models.Model):
     address = models.CharField(max_length=150, verbose_name="address")
     city = models.ForeignKey(CityDict, verbose_name="incity")
     add_time = models.DateTimeField(default=datetime.now)
+    category = models.CharField(default="pxjg",max_length=20,verbose_name="orgname", choices=(
+    ("pxjg", "Traning Organization"), ("school", "School"), ("Individual", "Individual")))
 
     class Meta:
         verbose_name = "courseorg"
         verbose_name_plural = verbose_name
 
+    def __unicode__(self):
+        return self.name
+
 
 class Teacher(models.Model):
-    org = models.ForeignKey(CourseOrg,verbose_name="inorg")
+    org = models.ForeignKey(CourseOrg, verbose_name="inorg")
     name = models.CharField(max_length=10, verbose_name="teachername")
     work_years = models.IntegerField(default=0, verbose_name="workyear")
     work_company = models.CharField(max_length=50, verbose_name="companyrname")
