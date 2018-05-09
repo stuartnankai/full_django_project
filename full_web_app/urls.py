@@ -13,24 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.static import serve
 from django.views.generic import TemplateView
-from users.views import LoginView,RegisterView,ActiveUserView,ForgetPwd,ResetView,ModifyPwdView
+from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwd, ResetView, ModifyPwdView
 from organization.views import OrgView
+from full_web_app.settings import MEDIA_ROOT
 
 import xadmin
+
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url('^$',TemplateView.as_view(template_name="index.html"),name="index"),
+    url('^$', TemplateView.as_view(template_name="index.html"), name="index"),
     url('^login/$', LoginView.as_view(), name="login"),
     url('^register/$', RegisterView.as_view(), name="register"),
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^active/(?P<active_code>\.*)/$',ActiveUserView.as_view(),name="user_active"), # pick the parameters
-    url(r'^forget/$',ForgetPwd.as_view(),name="forget_pwd"), # forget pwd
-    url(r'^reset/(?P<reset_code>\d+)/$',ResetView.as_view(),name="reset_pwd"), # pick the parameters
-    url(r'^modify_pwd/$',ModifyPwdView.as_view(),name="modeify_pwd"), # change pwd
-    url(r'^org_list/$',OrgView.as_view(),name="org_list"), # org list
-
+    url(r'^active/(?P<active_code>\.*)/$', ActiveUserView.as_view(), name="user_active"),  # pick the parameters
+    url(r'^forget/$', ForgetPwd.as_view(), name="forget_pwd"),  # forget pwd
+    url(r'^reset/(?P<reset_code>\d+)/$', ResetView.as_view(), name="reset_pwd"),  # pick the parameters
+    url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modeify_pwd"),  # change pwd
+    url(r'^org_list/$', OrgView.as_view(), name="org_list"),  # org list
+    # show the image
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT})
 
 ]

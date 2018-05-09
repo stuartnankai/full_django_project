@@ -27,8 +27,10 @@ class CourseOrg(models.Model):
     address = models.CharField(max_length=150, verbose_name="address")
     city = models.ForeignKey(CityDict, verbose_name="incity")
     add_time = models.DateTimeField(default=datetime.now)
-    category = models.CharField(default="pxjg",max_length=20,verbose_name="orgname", choices=(
-    ("pxjg", "Traning Organization"), ("school", "School"), ("Individual", "Individual")))
+    category = models.CharField(default="pxjg", max_length=20, verbose_name="orgname", choices=(
+        ("pxjg", "Traning Organization"), ("school", "School"), ("Individual", "Individual")))
+    students = models.IntegerField(default=0, verbose_name="learning people")
+    course_nums = models.IntegerField(default=0, verbose_name="course number")
 
     class Meta:
         verbose_name = "courseorg"
