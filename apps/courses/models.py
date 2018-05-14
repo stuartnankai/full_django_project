@@ -1,11 +1,13 @@
 from datetime import datetime
 
 from django.db import models
+from organization.models import CourseOrg
 
 
 # Create your models here.
 
 class Course(models.Model):
+    course_org = models.ForeignKey(CourseOrg, verbose_name="orgname", null=True, blank=True)
     name = models.CharField(max_length=50, verbose_name="coursename")
     desc = models.CharField(max_length=300, verbose_name="description")
     detail = models.TextField(verbose_name="detail")
@@ -23,6 +25,7 @@ class Course(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, verbose_name="lesson")

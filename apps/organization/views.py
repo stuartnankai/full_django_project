@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.views.generic import View
 from .models import CourseOrg, CityDict, Teacher
 from django.shortcuts import render_to_response
-
+from django.http import HttpResponse
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from .forms import UserAskForm
+from courses.models import Course
 
 
 # Create your views here.
@@ -12,28 +14,25 @@ class OrgView(View):
     def get(self, request):
         all_orgs = CourseOrg.objects.all()
         all_cities = CityDict.objects.all()
-        hot_orgs  = all_orgs.order_by("-click_num")[:3]
+        hot_orgs = all_orgs.order_by("-click_num")[:3]
         # Pick the city
 
-        city_id = request.GET.get('city',"")
+        city_id = request.GET.get('city', "")
         if city_id:
             all_orgs = all_orgs.filter(city_id=int(city_id))
 
-
         # Pick the org type
 
-        category = request.GET.get('ct',"")
+        category = request.GET.get('ct', "")
         if category:
-            all_orgs = all_orgs.filter(category = category)
+            all_orgs = all_orgs.filter(category=category)
 
-
-        sort = request.GET.get('sort',"")
+        sort = request.GET.get('sort', "")
         if sort:
             if sort == "students":
                 all_orgs = all_orgs.order_by("-students")
             elif sort == "courses":
                 all_orgs = all_orgs.order_by("-course_nums")
-
 
         # split the page
         try:
@@ -43,7 +42,7 @@ class OrgView(View):
 
         # Provide Paginator with the request object for complete querystring generation
 
-        p = Paginator(all_orgs, 1,request=request)
+        p = Paginator(all_orgs, 1, request=request)
 
         orgs = p.page(page)
         org_nums = all_orgs.count()
@@ -52,8 +51,34 @@ class OrgView(View):
             "all_orgs": orgs,
             "all_cities": all_cities,
             "org_nums": org_nums,
-            "city_id":city_id,
-            "category":category,
-            "hot_orgs":hot_orgs,
-            "sort":sort,
+            "city_id": city_id,
+            "category": category,
+            "hot_orgs": hot_orgs,
+            "sort": sort,
+        })
+
+
+class AddUserAskView(View):
+    def post(self, request):
+        userask_form = UserAskForm(request.POST)
+        if userask_form.is_valid():
+
+            user_ask = userask_form.save(commit=True)
+            return HttpResponse("{'status':'success'}", content_type='application/json')
+        else:
+            return HttpResponse("{'status':'fail','msg':'Wrong'}", content_type='application/json')
+
+
+class OrgHomeView(View):
+    """
+    org home page
+    """
+
+    def get(self, request, org_id):
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        all_courses = course_org.course_set.all()[:3]
+        all_teachers = course_org.teacher_set.all()[:1]
+        return render(request,'org-detail-homepage.html',{
+            'all_courses':all_courses,
+            'all_teachers':all_teachers,
         })

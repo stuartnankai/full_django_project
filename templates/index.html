@@ -85,7 +85,7 @@
                 <div class="nav">
                     <div class="wp">
                         <ul>
-                            <li class="active"><a href="index.html">Homepage</a></li>
+                            <li class="active"><a href="{% url 'index' %}">Homepage</a></li>
                             <li>
                                 <a href="course-list.html">
                                     Course<img class="hot" src="/static/images/nav_hot.png">
@@ -94,7 +94,7 @@
                             <li>
                                 <a href="teachers-list.html">Teacher</a>
                             </li>
-                            <li><a href="org-list.html">Organization</a></li>
+                            <li><a href="{% url 'org:org_list' %}">Organization</a></li>
                         </ul>
                     </div>
                 </div>

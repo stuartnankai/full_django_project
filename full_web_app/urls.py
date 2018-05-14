@@ -33,7 +33,9 @@ urlpatterns = [
     url(r'^forget/$', ForgetPwd.as_view(), name="forget_pwd"),  # forget pwd
     url(r'^reset/(?P<reset_code>\d+)/$', ResetView.as_view(), name="reset_pwd"),  # pick the parameters
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modeify_pwd"),  # change pwd
-    url(r'^org_list/$', OrgView.as_view(), name="org_list"),  # org list
+
+    # course org setup
+    url(r'^org/', include('organization.urls',namespace="org")),
     # show the image
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT})
 
