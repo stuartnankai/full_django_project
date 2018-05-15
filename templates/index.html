@@ -27,7 +27,7 @@
 
                         <div class="personal">
                             <dl class="user fr">
-                                <dd>Bobby<img class="down fr" src="/static/images/top_down.png"/></dd>
+                                <dd>{{ request.user }}<img class="down fr" src="/static/images/top_down.png"/></dd>
                                 <dt><img width="20" height="20" src="/static/media/image/2016/12/default_big_14.png"/>
                                 </dt>
                             </dl>
@@ -54,8 +54,8 @@
                         <div class="f1">
                             <p>Tel：<b>33333333</b></p></div>
                     </div>
-                    <a style="color:white" class="fr registerbtn" href="/register/">Register</a>
-                    <a style="color:white" class="fr loginbtn" href="/login/">Login</a>
+                    <a style="color:white" class="fr registerbtn" href="{% url 'register' %}">Register</a>
+                    <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">Login</a>
                 </div>
             {% endif %}
 

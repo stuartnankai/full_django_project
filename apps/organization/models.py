@@ -50,6 +50,8 @@ class Teacher(models.Model):
     click_num = models.IntegerField(default=0, verbose_name="clicknumber")
     fav_num = models.IntegerField(default=0, verbose_name="savenum")
     add_time = models.DateTimeField(default=datetime.now)
+    image = models.ImageField(upload_to="teacher/%Y/%m", verbose_name="figure", max_length=100,blank=True,null=True)
+
 
     class Meta:
         verbose_name = "teacher"

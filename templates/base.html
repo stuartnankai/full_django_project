@@ -16,63 +16,91 @@
 </head>
 <body>
 <section class="headerwrap ">
-    <header>
-		<div  class=" header">
- 			<div class="top">
-				<div class="wp">
-					<div class="fl"><p>服务电话：<b>33333333</b></p></div>
-					<!--登录后跳转-->
+     <header>
+        <div class=" header">
 
-                        
-                        <a style="color:white" class="fr registerbtn" href="{% url 'register' %}">Register</a>
-                        <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">Login</a>
-                    
+            {% if request.user.is_authenticated %}
+                <div class="top">
+                    <div class="wp">
+                        <div class="fl"><p>Tel：<b>33333333</b></p></div>
+                        <!--登录后跳转-->
 
+                        <div class="personal">
+                            <dl class="user fr">
+                                <dd>{{ request.user }}<img class="down fr" src="/static/images/top_down.png"/></dd>
+                                <dt><img width="20" height="20" src="/static/media/image/2016/12/default_big_14.png"/>
+                                </dt>
+                            </dl>
+                            <div class="userdetail">
+                                <dl>
+                                    <dt><img width="80" height="80"
+                                             src="/static/media/image/2016/12/default_big_14.png"/></dt>
+                                    <dd>
+                                        <h2>django</h2>
+                                        <p>bobby</p>
+                                    </dd>
+                                </dl>
+                                <div class="btn">
+                                    <a class="personcenter fl" href="usercenter-info.html">To the usercenter</a>
+                                    <a class="fr" href="/logout/">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="top">
+                    <div class="wp">
+                        <div class="f1">
+                            <p>Tel：<b>33333333</b></p></div>
+                    </div>
+                    <a style="color:white" class="fr registerbtn" href="{% url 'register' %}">Register</a>
+                    <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">Login</a>
+                </div>
+            {% endif %}
 
-				</div>
-			</div>
 
             <div class="middle">
                 <div class="wp">
-                    <a href="index.html"><img class="fl" src="/static/images/logo.jpg"/></a>
+                    <a href="/"><img class="fl" src="/static/images/logo.jpg"/></a>
                     <div class="searchbox fr">
                         <div class="selectContainer fl">
                             <span class="selectOption" id="jsSelectOption" data-value="course">
-                                公开课
+                                Courses
                             </span>
                             <ul class="selectMenu" id="jsSelectMenu">
-                                <li data-value="course">公开课</li>
-                                <li data-value="org">课程机构</li>
-                                <li data-value="teacher">授课老师</li>
+                                <li data-value="course">Courses</li>
+                                <li data-value="org">Organizations</li>
+                                <li data-value="teacher">Teachers</li>
                             </ul>
                         </div>
-                        <input id="search_keywords" class="fl" type="text" value="" placeholder="请输入搜索内容"/>
+                        <input id="search_keywords" class="fl" type="text" value="" placeholder="Type something"/>
                         <img class="search_btn fr" id="jsSearchBtn" src="/static/images/search_btn.png"/>
                     </div>
                 </div>
             </div>
-            
 
-			<nav>
-				<div class="nav">
-					<div class="wp">
-						<ul>
-							<li ><a href="{% url 'index' %}">Homepage</a></li>
-							<li >
-								<a href="course-list.html">
-									公开课<img class="hot" src="/static/images/nav_hot.png">
-								</a>
-							</li>
-							<li >
-								<a href="teachers-list.html">授课教师</a>
-							</li>
-							<li class="active" ><a href="{% url 'org:org_list' %}">授课机构</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
 
-			</div>
+            <nav>
+                <div class="nav">
+                    <div class="wp">
+                        <ul>
+                            <li class="active"><a href="{% url 'index' %}">Homepage</a></li>
+                            <li>
+                                <a href="course-list.html">
+                                    Course<img class="hot" src="/static/images/nav_hot.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teachers-list.html">Teacher</a>
+                            </li>
+                            <li><a href="{% url 'org:org_list' %}">Organization</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
     </header>
 </section>
 <!--crumbs start-->
@@ -80,7 +108,7 @@
     <section>
         <div class="wp">
             <ul  class="crumbs">
-                <li><a href="index.html">Homepage</a>></li>
+                <li><a href="{% url 'index' %}">Homepage</a>></li>
                 <li>Organization List</li>
             </ul>
         </div>

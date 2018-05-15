@@ -37,6 +37,6 @@ urlpatterns = [
     # course org setup
     url(r'^org/', include('organization.urls',namespace="org")),
     # show the image
-    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT})
+    url(r'^media/(?P<path>.*)/$', serve, {"document_root": MEDIA_ROOT})
 
 ]
